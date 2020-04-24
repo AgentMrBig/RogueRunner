@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    public int health = 200;
+
     public Transform gunArm;
 
     private Camera theMainCam;
@@ -19,6 +21,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject bulletToFire;
     public Transform firePoint;
+
+    public GameObject deathSplatter;
+    public GameObject deathPuddle;
+    public GameObject hitEffect;
 
     public float timeBetweenShots = 0.001f;
     private float shotCounter;
@@ -95,5 +101,23 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", false);
         }
 
+    }
+
+    public void DamagePlayer(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+
+            Instantiate(hitEffect, transform.position, transform.rotation);
+
+            int rotation = Random.Range(0, 4);
+
+            Instantiate(deathSplatter, transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
+            Instantiate(deathPuddle, transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
+
+        }
     }
 }
