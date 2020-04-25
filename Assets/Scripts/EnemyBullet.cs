@@ -10,6 +10,8 @@ public class EnemyBullet : MonoBehaviour
     public GameObject impactEffect;
     public GameObject enemyImpactEffect;
     private Vector3 direction;
+    public int bulletLife = 100;
+    public int bulletLifeTick = 1;
 
     bool hitTarget = false;
     public float bulletDieTimer = 0.05f;
@@ -27,6 +29,7 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         //rb.velocity = transform.right * speed;
+        bulletLife -= bulletLifeTick;
         transform.position += direction * speed * Time.deltaTime;
     }
 
@@ -43,7 +46,7 @@ public class EnemyBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             BulletDeathTimer();
             //Destroy(gameObject);
-            collision.GetComponentInParent<PlayerController>().DamagePlayer(bulletDmg);
+            PlayerHealthController.instance.DamagePlayer();
         }
         if (collision.gameObject.tag == "PlayerBullet")
         {
@@ -51,6 +54,12 @@ public class EnemyBullet : MonoBehaviour
             hitTarget = true;
             //Destroy(gameObject);
             BulletDeathTimer();
+        }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            Destroy(gameObject);
         }
 
     }

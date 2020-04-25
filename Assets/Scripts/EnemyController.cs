@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 moveDirection;
     private bool moveDirectionSet = false;
 
-    private GameObject playerToChase;
+    public GameObject playerToChase;
 
     public Animator anim;
 
@@ -26,6 +26,15 @@ public class EnemyController : MonoBehaviour
     public float fireRate;
     public float fireCounter;
 
+    public SpriteRenderer enemyBody;
+
+    private Vector3 hitPosition;
+
+    public bool playerSeen = false;
+
+    public float shootRange = 10f;
+    public float chaseRange = 15f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,30 +44,55 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //MoveToPlayer(moveDirection);
-        /*
-        if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
+        if (enemyBody.isVisible)
+        {
+            CheckDecideShootMove();
+        }
+            
+    }
+
+    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "EnemyBullet")
+        {
+            if(collision.gameObject.GetComponent<EnemyBullet>().bulletLife < 75)
+            {
+                hitPosition = transform.position;
+                
+                DamageEnemy(50);
+            }
+        }
+        
+    }
+
+    public void CheckDecideShootMove()
+    {
+        if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < chaseRange)
         {
             moveDirection = PlayerController.instance.transform.position - transform.position;
-        }
-        moveDirection.Normalize();
+            moveDirection.Normalize();
 
-        rb.velocity = moveDirection * moveSpeed;
-        */
+            MoveToPlayer(moveDirection);
 
-        if(moveDirection != Vector3.zero)
-        {
-            anim.SetBool("isWalking", true);
-        }
-        else
-        {
-            anim.SetBool("isWalking", false);
+
+
+            if (moveDirection != Vector3.zero)
+            {
+                anim.SetBool("isWalking", true);
+            }
+            else
+            {
+                anim.SetBool("isWalking", false);
+            }
         }
 
-        if (shouldShoot)
+
+        if (shouldShoot && Vector3.Distance(transform.position, PlayerController.instance.transform.position) < shootRange)
         {
             fireCounter -= Time.deltaTime;
-            if(fireCounter <= 0)
+            if (fireCounter <= 0)
             {
                 fireCounter = fireRate;
                 Instantiate(bullet, transform.position, transform.rotation);
@@ -66,31 +100,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            
-            playerToChase = collision.gameObject;
-            Debug.Log("hit " + collision.gameObject.name);
-            moveDirection = playerToChase.transform.position - transform.position;
-            moveDirection.Normalize();
-            Debug.Log(moveDirection);
-            moveDirectionSet = true;
-            rb.velocity = moveDirection * moveSpeed;
-        }
-
-    }
-
     public void MoveToPlayer(Vector3 direction)
     {
-        if (moveDirectionSet)
-        {
-            direction = playerToChase.transform.position - transform.position;
-            direction.Normalize();
-            rb.velocity = direction * moveSpeed;
-        }
-        
+        direction = PlayerController.instance.transform.position - transform.position;
+        direction.Normalize();
+        rb.velocity = direction * moveSpeed;
     }
 
     public void DamageEnemy(int dmg)
@@ -98,19 +112,26 @@ public class EnemyController : MonoBehaviour
         health -= dmg;
         rb.velocity = Vector3.zero;
 
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
 
             Instantiate(hitEffect, transform.position, transform.rotation);
             int selectedSplater = Random.Range(1, deathSplatters.Length);
-            
+
             int rotation = Random.Range(0, 4);
 
-            
 
-            Instantiate(deathSplatters[selectedSplater], transform.position, Quaternion.Euler(0f,0f,rotation * 90f));
-            
+
+            Instantiate(deathSplatters[selectedSplater], transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
+
         }
     }
+
+
 }
+
+
+    
+
+    

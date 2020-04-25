@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
 
-    public int health = 200;
 
     public Transform gunArm;
 
@@ -103,21 +102,4 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void DamagePlayer(int dmg)
-    {
-        health -= dmg;
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-
-            Instantiate(hitEffect, transform.position, transform.rotation);
-
-            int rotation = Random.Range(0, 4);
-
-            Instantiate(deathSplatter, transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
-            Instantiate(deathPuddle, transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
-
-        }
-    }
 }

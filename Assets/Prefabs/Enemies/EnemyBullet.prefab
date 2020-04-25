@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2188424053929872525}
   - component: {fileID: 3480825180636621547}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.19
 --- !u!1 &5953227909096383947
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 1291231989396834636}
   - component: {fileID: 2299870659231969894}
   - component: {fileID: 7022310009594677781}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyBullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -151,6 +151,8 @@ MonoBehaviour:
     type: 3}
   enemyImpactEffect: {fileID: 9081360230437443556, guid: 9ac3e99c36ce82442b3e0b47aac24f9a,
     type: 3}
+  bulletLife: 100
+  bulletLifeTick: 1
   bulletDieTimer: 0.05
 --- !u!50 &2299870659231969894
 Rigidbody2D:
@@ -188,4 +190,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.21875
+  m_Radius: 0.19

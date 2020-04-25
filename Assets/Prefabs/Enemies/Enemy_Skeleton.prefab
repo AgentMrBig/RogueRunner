@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4890191806556428398}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6968324930216310650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0.08, z: 0}
+  m_LocalPosition: {x: -0.55, y: 0.08, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7108893488450029595}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3041715531827180759}
   - component: {fileID: 4235907345916761207}
   - component: {fileID: 6210994264157949938}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skeleton_Body
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8685625955933025235}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7108893488450029595}
@@ -169,9 +169,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7108893488450029595}
   - component: {fileID: 8522853456922649281}
-  - component: {fileID: 2766374940335041949}
   - component: {fileID: 3502518603349969621}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8832458499233924839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1717979671160510201}
@@ -209,6 +208,7 @@ MonoBehaviour:
   rb: {fileID: 3502518603349969621}
   moveSpeed: 2.5
   health: 100
+  playerToChase: {fileID: 0}
   anim: {fileID: 6210994264157949938}
   deathSplatters:
   - {fileID: 8718085004856647834, guid: dfb631f235e24a947804a634a872919e, type: 3}
@@ -222,22 +222,10 @@ MonoBehaviour:
   firePoint: {fileID: 4890191806556428398}
   fireRate: 4
   fireCounter: 3
---- !u!58 &2766374940335041949
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832458499233924839}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4
+  enemyBody: {fileID: 3041715531827180759}
+  playerSeen: 0
+  shootRange: 5
+  chaseRange: 7
 --- !u!50 &3502518603349969621
 Rigidbody2D:
   serializedVersion: 4
@@ -251,7 +239,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

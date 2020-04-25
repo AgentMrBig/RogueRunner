@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5057626839104970726}
   - component: {fileID: 6273637757535370474}
   - component: {fileID: 7443643818999737341}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerBloodPuddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
