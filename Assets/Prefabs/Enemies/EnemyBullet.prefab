@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDmg: 25
-  speed: 3
+  speed: 6
   rb: {fileID: 2299870659231969894}
   impactEffect: {fileID: 9081360230437443556, guid: 9ac3e99c36ce82442b3e0b47aac24f9a,
     type: 3}

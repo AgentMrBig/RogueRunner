@@ -21,9 +21,18 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletToFire;
     public Transform firePoint;
 
-    public GameObject deathSplatter;
-    public GameObject deathPuddle;
+    
     public GameObject hitEffect;
+
+    public SpriteRenderer bodySR;
+
+    private float activeMoveSpeed;
+    public float dashSpeed = 8f;
+    public float dashLength = 0.5f;
+    public float dashCooldown = 1f;
+    public float dashInvincibility = 0.5f;
+    public float dashNoDmg = 0.5f;
+    public float dashCounter, dashCoolCounter;
 
     public float timeBetweenShots = 0.001f;
     private float shotCounter;
@@ -31,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
     }
 
     // Start is called before the first frame update
@@ -39,6 +49,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         theMainCam = Camera.main;
         anim = GetComponent<Animator>();
+
+        activeMoveSpeed = moveSpeed;
         
     }
 
@@ -51,7 +63,7 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
 
         //transform.position += new Vector3(moveInput.x * Time.deltaTime * moveSpeed, moveInput.y * Time.deltaTime * moveSpeed, 0f);
-        rb.velocity = moveInput * moveSpeed;
+        rb.velocity = moveInput * activeMoveSpeed;
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 screenPoint = theMainCam.WorldToScreenPoint(transform.localPosition);
@@ -88,6 +100,34 @@ public class PlayerController : MonoBehaviour
                 Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
                 shotCounter = timeBetweenShots;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(dashCoolCounter <= 0 && dashCounter <= 0)
+            {
+                activeMoveSpeed = dashSpeed;
+                dashCounter = dashLength;
+
+                anim.SetTrigger("dash");
+
+                PlayerHealthController.instance.MakeInvicible(dashInvincibility);
+            }
+            
+
+        }
+        if(dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
+            if(dashCounter <= 0)
+            {
+                activeMoveSpeed = moveSpeed;
+                dashCoolCounter = dashCooldown;
+            }
+        }
+        if(dashCoolCounter > 0)
+        {
+            dashCoolCounter -= Time.deltaTime;
         }
 
 

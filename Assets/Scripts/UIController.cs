@@ -9,9 +9,16 @@ public class UIController : MonoBehaviour
     public Slider healthSlider;
     public Text healthText;
 
+    public GameObject deathScreen;
+
+    public Image deathScreenImg;
+    public Text deathScreenTxt;
+
     public void Awake()
     {
         instance = this;
+
+
     }
     // Start is called before the first frame update
     void Start()

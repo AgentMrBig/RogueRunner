@@ -23,7 +23,7 @@ public class PlayerBullet : MonoBehaviour
     void Update()
     {
         rb.velocity = transform.right * speed;
-        BulletDeathTimer();
+        BulletDeathTimer(1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +33,7 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(impactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
+            
 
         }
         else if(collision.gameObject.tag == "Enemy")
@@ -40,6 +41,7 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
+            
             collision.GetComponentInParent<EnemyController>().DamageEnemy(bulletDmg);
         }
 
@@ -48,18 +50,27 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
-            BulletDeathTimer();
+            
         }
- 
+
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            //Destroy(gameObject);
+            
+        }
+
     }
 
-    private void BulletDeathTimer()
+    private void BulletDeathTimer(float timeFactor)
     {
         if (hitTarget)
         {
-            bulletDieTimer -= 1f * Time.deltaTime;
+            bulletDieTimer -= timeFactor * Time.deltaTime;
             if(bulletDieTimer <= 0)
             {
+                
                 Destroy(gameObject);
             }
         }

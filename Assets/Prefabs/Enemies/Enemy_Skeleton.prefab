@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 7108893488450029595}
   - component: {fileID: 8522853456922649281}
   - component: {fileID: 3502518603349969621}
+  - component: {fileID: 6589696158333291532}
   m_Layer: 10
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
@@ -247,3 +248,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6589696158333291532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832458499233924839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717052cf9e3e2594da18b9bb7055d0e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
