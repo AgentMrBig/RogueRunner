@@ -49,14 +49,14 @@ public class PlayerHealthController : MonoBehaviour
         if (PlayerController.instance.gameObject.activeInHierarchy == false)
         {
             UIController.instance.deathScreen.SetActive(true);
-            deathScreenFadeCount -= Time.deltaTime;
-            UIController.instance.deathScreenImg.color = new Color(0, 0, 0, +deathScreenFadeLength);
-            UIController.instance.deathScreenTxt.color = new Color(1, 0, 0, +deathScreenFadeLength);
-            if (deathScreenFadeCount <= 0)
-            {
-                UIController.instance.deathScreenImg.color = new Color(0, 0, 0, 1);
-                UIController.instance.deathScreenTxt.color = new Color(1, 0, 0, 1);
-            }
+           // deathScreenFadeCount -= Time.deltaTime;
+            //UIController.instance.deathScreenImg.color = new Color(0, 0, 0, +deathScreenFadeLength);
+            //UIController.instance.deathScreenTxt.color = new Color(1, 0, 0, +deathScreenFadeLength);
+            //if (deathScreenFadeCount <= 0)
+           // {
+            //    UIController.instance.deathScreenImg.color = new Color(0, 0, 0, 1);
+            //    UIController.instance.deathScreenTxt.color = new Color(1, 0, 0, 1);
+           // }
 
         }
     }
@@ -65,6 +65,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         if(noDmgCount <= 0)
         {
+            AudioManager.instance.PlaySFX(11);
             currentHealth--;
             noDmgCount = noDmgLength;
 
@@ -77,7 +78,9 @@ public class PlayerHealthController : MonoBehaviour
 
                 
                 PlayerController.instance.gameObject.SetActive(false);
-                
+
+                AudioManager.instance.PlayGameOver();
+                AudioManager.instance.PlaySFX(9);
             }
 
             UIController.instance.healthSlider.value = currentHealth;
@@ -91,5 +94,16 @@ public class PlayerHealthController : MonoBehaviour
     {
         noDmgCount = length;
         PlayerController.instance.bodySR.color = new Color(1, 1f, 1f, 0.5f);
+    }
+
+    public void HealPlayer(int healAmount)
+    {
+        currentHealth += healAmount;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        UIController.instance.healthSlider.value = currentHealth;
+        UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
     }
 }

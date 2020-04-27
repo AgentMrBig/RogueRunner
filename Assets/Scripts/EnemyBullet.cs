@@ -26,11 +26,12 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //rb.velocity = transform.right * speed;
         bulletLife -= bulletLifeTick;
         transform.position += direction * speed * Time.deltaTime;
+        BulletDeathTimer(1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,39 +39,65 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.tag == "shootable")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
-            BulletDeathTimer();
+            hitTarget = true;
             //Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+
         }
         else if (collision.gameObject.tag == "Player")
         {
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
-            BulletDeathTimer();
+            hitTarget = true;
             //Destroy(gameObject);
             PlayerHealthController.instance.DamagePlayer();
+            AudioManager.instance.PlaySFX(4);
         }
         if (collision.gameObject.tag == "PlayerBullet")
         {
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
-            hitTarget = true;
+            hitTarget = false;
             //Destroy(gameObject);
-            BulletDeathTimer();
+            AudioManager.instance.PlaySFX(4);
+
         }
         if (collision.gameObject.tag == "Enemy")
         {
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
         }
-
+        if (collision.gameObject.tag == "Breakable")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+        }
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+        }
+        if (collision.gameObject.tag == "Stage")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+        }
     }
 
-    public void BulletDeathTimer()
+    private void BulletDeathTimer(float timeFactor)
     {
         if (hitTarget)
         {
-            bulletDieTimer -= 1f * Time.deltaTime;
+            bulletDieTimer -= timeFactor * Time.deltaTime;
             if (bulletDieTimer <= 0)
             {
+
                 Destroy(gameObject);
             }
         }

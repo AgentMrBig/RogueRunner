@@ -35,6 +35,9 @@ public class EnemyController : MonoBehaviour
     public float shootRange = 10f;
     public float chaseRange = 15f;
 
+    public float noDmgCount;
+    public float noDmgLength = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +51,16 @@ public class EnemyController : MonoBehaviour
         {
             CheckDecideShootMove();
         }
-            
+
+        if (noDmgCount > 0)
+        {
+            noDmgCount -= Time.deltaTime;
+            if (noDmgCount <= 0)
+            {
+                enemyBody.color = new Color(1, 1f, 1f, 1f);
+            }
+        }
+
     }
 
     
@@ -96,6 +108,7 @@ public class EnemyController : MonoBehaviour
             {
                 fireCounter = fireRate;
                 Instantiate(bullet, transform.position, transform.rotation);
+                AudioManager.instance.PlaySFX(13);
             }
         }
     }
@@ -110,11 +123,19 @@ public class EnemyController : MonoBehaviour
     public void DamageEnemy(int dmg)
     {
         health -= dmg;
+        noDmgCount = noDmgLength;
+        enemyBody.color = new Color(1, 0.5f, 0.5f, 0.5f);
+
+        AudioManager.instance.PlaySFX(2);
+  
+
         rb.velocity = Vector3.zero;
 
         if (health <= 0)
         {
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySFX(1);
 
             Instantiate(hitEffect, transform.position, transform.rotation);
             int selectedSplater = Random.Range(1, deathSplatters.Length);

@@ -33,6 +33,9 @@ public class FadeOut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(rend.material.color.a <= 0.1)
+        {
+            Destroy(gameObject);
+        }
     }
 }

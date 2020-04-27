@@ -20,7 +20,7 @@ public class PlayerBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb.velocity = transform.right * speed;
         BulletDeathTimer(1f);
@@ -33,7 +33,9 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(impactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
-            
+            AudioManager.instance.PlaySFX(4);
+
+
 
         }
         else if(collision.gameObject.tag == "Enemy")
@@ -41,7 +43,8 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
-            
+            AudioManager.instance.PlaySFX(4);
+
             collision.GetComponentInParent<EnemyController>().DamageEnemy(bulletDmg);
         }
 
@@ -50,7 +53,9 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
-            
+            AudioManager.instance.PlaySFX(5);
+
+
         }
 
         if (collision.gameObject.tag == "Obstacle")
@@ -58,7 +63,29 @@ public class PlayerBullet : MonoBehaviour
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             hitTarget = true;
             //Destroy(gameObject);
-            
+            AudioManager.instance.PlaySFX(4);
+
+
+        }
+
+        if (collision.gameObject.tag == "Breakable")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            //Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+
+
+        }
+
+        if (collision.gameObject.tag == "Stage")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            hitTarget = true;
+            //Destroy(gameObject);
+            AudioManager.instance.PlaySFX(4);
+
+
         }
 
     }

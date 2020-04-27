@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9081360230437443553}
   - component: {fileID: 9081360230437443554}
   - component: {fileID: 9081360230437443555}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletHit1
-  m_TagString: Untagged
+  m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4786,8 +4786,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -362019911
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0

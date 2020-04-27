@@ -9,6 +9,9 @@ TagManager:
   - EnemyBullet
   - PlayerBullet
   - Obstacle
+  - Breakable
+  - Stage
+  - Effect
   layers:
   - Default
   - TransparentFX
@@ -23,10 +26,10 @@ TagManager:
   - Enemies
   - EnemyBullets
   - Effects
-  - 
-  - 
-  - 
-  - 
+  - Breakables
+  - Obstacles
+  - Pickups
+  - Stage
   - 
   - 
   - 
@@ -45,4 +48,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Effects
+    uniqueID: 3932947385
+    locked: 0
+  - name: Breakables
+    uniqueID: 3066266995
+    locked: 0
+  - name: Obstacles
+    uniqueID: 1768792911
+    locked: 0
+  - name: Pickups
+    uniqueID: 2532323863
+    locked: 0
+  - name: Enemies
+    uniqueID: 437179367
+    locked: 0
+  - name: Player
+    uniqueID: 1122903087
+    locked: 0
+  - name: Bullets
+    uniqueID: 2865082567
     locked: 0
